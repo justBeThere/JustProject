@@ -23,11 +23,15 @@ module.exports = {
   rules: {
     //关闭分号校验
     'semi': 0,
+    //关闭单双引号校验
+    'quotes': 0,
     //关闭缩进校验
     'indent': 'off',
     //关闭函数空格校验
     "space-before-function-paren": 0,
     'space-before-blocks': 0,
+    'arrow-spacing': 0,
+    'spaced-comment': 0,
     // allow async-await
     'generator-star-spacing': 'off',
     // allow debugger during development
