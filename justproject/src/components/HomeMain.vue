@@ -12,10 +12,13 @@
     <el-main class="cate_mana_main">
       <el-table
         ref="multipleTable"
-        :data="categories"
+        :data="projects"
         tooltip-effect="dark"
         style="width: 100%"
-        @selection-change="handleSelectionChange" v-loading="loading">
+        @selection-change="handleSelectionChange"
+        @row-dblclick="openSelectedProject"
+        @row-contextmenu="rightClick"
+        v-loading="loading">
         <el-table-column
           type="selection"
           width="55" align="left">
@@ -26,29 +29,47 @@
           width="120" align="left">
         </el-table-column>
         <el-table-column
-          label="栏目名称"
-          prop="cateName"
+          label="名称"
+          prop="name"
+          width="180" align="left">
+        </el-table-column>
+        <el-table-column
+          label="详情"
+          prop="info"
           width="120" align="left">
         </el-table-column>
         <el-table-column
-          prop="date"
-          label="启用时间" align="left">
+          label="所有者"
+          prop="owner"
+          width="120" align="left">
+        </el-table-column>
+        <el-table-column
+          label="类型"
+          prop="type"
+          width="120" align="left">
+        </el-table-column>
+        <el-table-column
+          label="等级"
+          prop="level"
+          width="120" align="left">
+        </el-table-column>
+        <el-table-column
+          label="状况"
+          prop="status"
+          width="120" align="left">
+        </el-table-column>
+        <el-table-column
+          prop="createDate"
+          label="创建时间" align="left">
           <template slot-scope="scope">{{ scope.row.date | formatDate}}</template>
         </el-table-column>
-        <el-table-column label="操作" align="left">
-          <template slot-scope="scope">
-            <el-button
-              size="mini"
-              @click="handleEdit(scope.$index, scope.row)">编辑
-            </el-button>
-            <el-button
-              size="mini"
-              type="danger"
-              @click="handleDelete(scope.$index, scope.row)">删除
-            </el-button>
-          </template>
-        </el-table-column>
       </el-table>
+      <div v-show="menuVisible">
+        <ul id="menu" class="menu">
+          <li class="menu_item" @click="">打开</li>
+          <li class="menu_item" @click="">删除</li>
+        </ul>
+      </div>
     </el-main>
   </el-container>
 </template>
@@ -56,6 +77,23 @@
   export default{
     name: 'HomeMain',
     methods: {
+      rightClick(row, column, event){
+        this.menuVisible = false; // 先把模态框关死，目的是 第二次或者第n次右键鼠标的时候 它默认的是true
+        this.menuVisible = true;  // 显示模态窗口，跳出自定义菜单栏
+        var menu = document.querySelector('#menu');
+//        document.addEventListener('click', this.foo); // 给整个document添加监听鼠标事件，点击任何位置执行foo方法
+        menu.style.display = "block";
+        menu.style.left = MouseEvent.clientX - 0 + 'px';
+        menu.style.top = MouseEvent.clientY - 80 + 'px';
+      },
+      openSelectedProject(row, column, event){
+        alert("row--->" + row.id);
+        var keys =[];
+        for(var i in row){
+          keys.push(i);
+        }
+        console.log("rowKey--->"+keys);
+      },
       addNewCate(){
       },
       deleteAll(){
@@ -123,9 +161,12 @@
     },
     data(){
       return {
+        menuVisible: false,
         cateName: '',
         selItems: [],
-        categories: [],
+        projects: [{
+          id: '0001', name: 'testProject', info: 'I', owner: 'LVMH', type: 'Design', level: 'A', status: 'RUNNING', date: '2019-12-24'
+        }],
         loading: false
       }
     }
