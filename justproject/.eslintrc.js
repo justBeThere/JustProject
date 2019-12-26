@@ -32,6 +32,7 @@ module.exports = {
     'space-before-blocks': 0,
     'arrow-spacing': 0,
     'spaced-comment': 0,
+    'no-multi-spaces': 0,
     // allow async-await
     'generator-star-spacing': 'off',
     // allow debugger during development
