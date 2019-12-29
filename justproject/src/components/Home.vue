@@ -16,7 +16,12 @@
         </el-dropdown>
       </div>
     </el-header>
-    <el-main>Main</el-main>
+    <el-main>
+      <keep-alive>
+        <router-view v-if="this.$route.meta.keepAlive"></router-view>
+      </keep-alive>
+      <router-view v-if="!this.$route.meta.keepAlive"></router-view>
+    </el-main>
     <el-footer class="el-footer">Footer</el-footer>
   </el-container>
 </template>

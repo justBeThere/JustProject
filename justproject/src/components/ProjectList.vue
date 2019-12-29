@@ -1,13 +1,13 @@
 <template>
   <el-container>
     <el-header class="cate_mana_header">
-      <el-button type="primary" @click="addNewCate">新建</el-button>
+      <el-button type="primary" @click="addNewProj">新建</el-button>
       <el-button type="danger" :disabled="this.selItems.length==0" @click="deleteAll">删除</el-button>
       <el-input
         placeholder="请输入关键字"
         v-model="cateName" style="width: 200px;">
       </el-input>
-      <el-button type="primary" @click="addNewCate" icon="el-icon-search"></el-button>
+      <el-button type="primary" @click="addNewProj" icon="el-icon-search"></el-button>
     </el-header>
     <el-main class="cate_mana_main">
       <el-table
@@ -72,10 +72,12 @@
       </div>
     </el-main>
   </el-container>
+  <ProjectCreate/>
 </template>
 <script type="text/ecmascript-6">
+  import ProjectCreate from '@/components/ProjectCreate';
   export default{
-    name: 'HomeMain',
+    name: 'ProjectList',
     methods: {
       rightClick(row, column, event){
         this.menuVisible = false; // 先把模态框关死，目的是 第二次或者第n次右键鼠标的时候 它默认的是true
@@ -103,7 +105,10 @@
         }
         console.log("rowKey--->" + keys);
       },
-      addNewCate(){
+      addNewProj(){
+        console.log("before--->" + ProjectCreate.dialogFormVisible);
+        ProjectCreate.dialogFormVisible = true;
+        console.log("after--->" + ProjectCreate.dialogFormVisible);
       },
       deleteAll(){
         var _this = this;
@@ -204,7 +209,7 @@
     flex-direction: column;
     padding-left: 5px;
     background-color: #ececec;
-    margin-top: 20px;
+    /*margin-top: 10px;*/
     padding-top: 10px;
   }
 
@@ -216,7 +221,7 @@
 
   .menu {
     height: 100px;
-    width: 180px;
+    width: 150px;
     position: absolute;
     border-radius: 10px;
     border: 1px solid #999999;

@@ -7,7 +7,7 @@
     </p>
     <p>
       <router-link to="/home">Go to Home</router-link>
-      <router-link to="/homeMain">Go to HomeMain</router-link>
+      <router-link to="/ProjectList">Go to ProjectList</router-link>
     </p>
     <router-view/>
   </div>
